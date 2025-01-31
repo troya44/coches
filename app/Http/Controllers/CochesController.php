@@ -53,8 +53,10 @@ class CochesController extends Controller
         $coche->save();
 
         // Redireccionar a la página de detalles del coche
-        return redirect()->to('/coches/' . $coche->matricula)
+
+        return redirect()->route('coches.index')
             ->with('success', 'Coche creado exitosamente.');
+
     }
 
 
