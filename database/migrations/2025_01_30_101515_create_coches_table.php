@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('matricula');
             $table->string('modelo');
             $table->string('color');
-            $table->timestamp();
+            $table->timestamps();
         });
     }
 

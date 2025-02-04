@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class CochesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -88,8 +89,12 @@ class CochesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(coches $coches)
+    public function destroy(string $matricula)
     {
-        //
+        $coche = Coches::findOrFail($matricula);
+        $coche->delete();
+        return redirect()->route('coches.index')->with('success', 'Coche eliminado exitosamente.');
     }
+
+
 }
