@@ -62,28 +62,36 @@ class CochesController extends Controller
 
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(coches $coches)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(coches $coches)
+    public function edit(string $matricula)
     {
-        //
+        $coche = Coches::where('matricula', $matricula)->firstOrFail();
+        return view('editarCoche', compact('coche'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, coches $coches)
+    public function update(Request $request, string $matricula)
     {
-        //
+        $coche = Coches::where('matricula', $matricula)->firstOrFail();
+
+        $request->validate([
+            'modelo' => 'required|max:255',
+            'color' => 'required|max:50',
+        ]);
+
+        $coche->modelo = $request->modelo;
+        $coche->color = $request->color;
+        $coche->save();
+
+        return redirect()->route('coches.index')
+            ->with('success', 'Coche actualizado exitosamente.');
     }
 
     /**
@@ -91,7 +99,7 @@ class CochesController extends Controller
      */
     public function destroy(string $matricula)
     {
-        $coche = Coches::findOrFail($matricula);
+        $coche = Coches::where('matricula', $matricula)->firstOrFail();
         $coche->delete();
         return redirect()->route('coches.index')->with('success', 'Coche eliminado exitosamente.');
     }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Nuevo Coche</title>
+    <title>Editar Coche</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,22 +61,24 @@
     </style>
 </head>
 <body>
-<h1>Crear Nuevo Coche</h1>
-<form action="{{ route('coches.store') }}" method="POST">
+<h1>Editar Coche</h1>
+<form action="{{ route('coches.update', $coche->matricula) }}" method="POST">
     @csrf
+    @method('PUT')
     <div>
         <label for="matricula">Matrícula:</label>
-        <input type="text" id="matricula" name="matricula" required>
+        <input type="text" id="matricula" name="matricula" value="{{ $coche->matricula }}" readonly>
     </div>
     <div>
         <label for="modelo">Modelo:</label>
-        <input type="text" id="modelo" name="modelo" required>
+        <input type="text" id="modelo" name="modelo" value="{{ $coche->modelo }}" required>
     </div>
     <div>
         <label for="color">Color:</label>
-        <input type="text" id="color" name="color" required>
+        <input type="text" id="color" name="color" value="{{ $coche->color }}" required>
     </div>
-    <button type="submit">Guardar Coche</button>
+    <button type="submit">Actualizar Coche</button>
 </form>
+<a href="{{ route('coches.index') }}">Volver al listado</a>
 </body>
 </html>
